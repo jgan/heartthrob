@@ -47,3 +47,6 @@ coverage/
 
 # Optional: if you're using TypeScript
 *.tsbuildinfo 
+
+# Intermediate assets
+config-drafts
