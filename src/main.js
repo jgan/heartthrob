@@ -1,6 +1,8 @@
-const { app, BrowserWindow, ipcMain, protocol } = require('electron/main')
 const path = require('node:path')
 const fs = require('fs')
+
+const { app, BrowserWindow, ipcMain, protocol } = require('electron/main')
+
 const Config = require('./config')
 const Game = require('./game')
 
@@ -38,9 +40,11 @@ app.whenReady().then(() => {
     const filePath = request.url.replace('app://', '');
     console.log('Loading image:', filePath);
 
+    // const fullPath = path.join(config.configPath, filePath);
+    const fullPath = filePath;
+
     try {
-      data = fs.readFileSync(filePath)
-      console.log('Data:', data)
+      data = fs.readFileSync(fullPath)
       return new Response(data, { headers: { 'content-type': 'image/png' } })
     } catch (error) {
       console.error('Failed to load image:', error);

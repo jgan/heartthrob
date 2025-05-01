@@ -2,9 +2,11 @@ const fs = require('fs');
 const path = require('path');
 const csv = require('csv-parse/sync');
 
+const { app } = require('electron')
+
 class Config {
     constructor(configPath = './config/default') {
-        this.configPath = path.resolve(configPath);
+        this.configPath = path.join(app.getAppPath(), './config/default');
         this.boyfriendCards = [];
         this.descriptors = [];
         this.load();
