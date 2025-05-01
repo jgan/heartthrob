@@ -12,7 +12,13 @@ module.exports = {
   makers: [
     {
       name: '@electron-forge/maker-squirrel',
-      config: {},
+      config: {
+        name: 'heart-throb',
+        authors: 'Your Name',
+        description: 'Heart Throb Game',
+        noMsi: false,
+        useAppIdAsId: true,
+      },
     },
     {
       name: '@electron-forge/maker-zip',
