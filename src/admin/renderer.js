@@ -1,8 +1,27 @@
 const information = document.getElementById('info')
 const boyfriendCardsList = document.getElementById('boyfriend-cards-list')
+const pingButton = document.getElementById('ping')
+const newGameButton = document.getElementById('new-game')
 
 // Display app versions
 information.innerText = `This app is using Chrome (v${versions.chrome()}), Node.js (v${versions.node()}), and Electron (v${versions.electron()})`
+
+// Handle ping button
+pingButton.addEventListener('click', async () => {
+  const response = await window.versions.ping()
+  information.textContent = `Ping: ${response}`
+})
+
+// Handle new game button
+newGameButton.addEventListener('click', async () => {
+  try {
+    await window.versions.newGame()
+    information.textContent = 'New game started!'
+  } catch (error) {
+    console.error('Failed to start new game:', error)
+    information.textContent = 'Error starting new game'
+  }
+})
 
 // Load and display boyfriend cards
 const loadBoyfriendCards = async () => {

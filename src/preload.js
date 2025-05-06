@@ -5,7 +5,8 @@ contextBridge.exposeInMainWorld('versions', {
   chrome: () => process.versions.chrome,
   electron: () => process.versions.electron,
   ping: () => ipcRenderer.invoke('ping'),
-  getBoyfriendCards: () => ipcRenderer.invoke('get-boyfriend-cards'),
+  getHunks: () => ipcRenderer.invoke('get-hunks'),
   getDescriptors: (category) => ipcRenderer.invoke('get-descriptors', category),
-  newGame: () => ipcRenderer.invoke('new-game')
+  newGame: () => ipcRenderer.invoke('new-game'),
+  onGameUpdated: (callback) => ipcRenderer.on('game-updated', (_, hunks) => callback(hunks))
 })

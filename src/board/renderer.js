@@ -1,6 +1,6 @@
 const gameContainer = document.getElementById('game-container');
 
-const displayHunks = (hunks) => {
+const renderHunks = (hunks) => {
     try {
         console.log('Displaying hunks:', hunks);
         const hunkHTML = hunks.map(hunk => {
@@ -53,16 +53,13 @@ const displayHunks = (hunks) => {
     }
 };
 
-// Initialize the game when the page loads
-window.versions.newGame().then(displayHunks).catch(error => {
-    console.error('Failed to start new game:', error);
-    gameContainer.innerHTML = '<p>Error starting new game</p>';
+// Listen for game updates from the main process
+window.versions.onGameUpdated((hunks) => {
+  renderHunks(hunks);
 });
 
-// Add event listener for new game button
-document.getElementById('new-game').addEventListener('click', () => {
-    window.versions.newGame().then(displayHunks).catch(error => {
-        console.error('Failed to start new game:', error);
-        gameContainer.innerHTML = '<p>Error starting new game</p>';
-    });
-});
+// Initial render
+// window.versions.newGame();
+window.versions.getHunks().then(hunks => {
+    renderHunks(hunks);
+  });

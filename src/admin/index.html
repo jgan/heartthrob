@@ -1,18 +1,62 @@
-<h1>Admin</h1>
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' config:"
+    />
+    <title>Heart Throb Admin</title>
+    <style>
+      body {
+        padding: 20px;
+        font-family: system-ui, -apple-system, sans-serif;
+      }
+      button {
+        padding: 8px 16px;
+        margin: 8px 0;
+        background-color: #4CAF50;
+        color: white;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+      }
+      button:hover {
+        background-color: #45a049;
+      }
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 16px;
+      }
+      th, td {
+        padding: 8px;
+        text-align: left;
+        border-bottom: 1px solid #ddd;
+      }
+      th {
+        background-color: #f5f5f5;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Admin</h1>
+    <button id="new-game">New Game</button>
+    <div id="info"></div>
+    <button id="ping">Ping</button>
 
-<div id="info"></div>
-<button id="ping">Ping</button>
+    <h2>Boyfriend Cards</h2>
+    <table id="boyfriend-cards-table">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Image Path</th>
+        </tr>
+      </thead>
+      <tbody id="boyfriend-cards-list">
+      </tbody>
+    </table>
 
-<h2>Boyfriend Cards</h2>
-<table id="boyfriend-cards-table">
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>Image Path</th>
-    </tr>
-  </thead>
-  <tbody id="boyfriend-cards-list">
-  </tbody>
-</table>
-
-<script src="./renderer.js"></script>
+    <script src="./renderer.js"></script>
+  </body>
+</html>
