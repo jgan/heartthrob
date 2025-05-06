@@ -23,7 +23,6 @@ const renderHunks = (hunks) => {
                                     <div class="descriptor-inner flipped" onclick="this.classList.toggle('flipped')">
                                         <div class="descriptor-front">
                                             <div>
-                                                <strong>${category}:</strong><br>
                                                 ${descriptor.text}
                                             </div>
                                         </div>

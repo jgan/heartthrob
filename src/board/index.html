@@ -5,14 +5,21 @@
     <!-- https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP -->
     <meta
       http-equiv="Content-Security-Policy"
-      content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' config:"
+      content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' config:; font-src 'self' config:"
     />
     <meta
       http-equiv="X-Content-Security-Policy"
-      content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' config:"
+      content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' config:; font-src 'self' config:"
     />
     <title>Heart Throb</title>
     <style>
+      @font-face {
+        font-family: 'trait-font';
+        src: url('config://fonts/trait-card-font.otf') format('opentype');
+        font-weight: normal;
+        font-style: normal;
+      }
+
       body {
         margin: 0;
         padding: 0;
@@ -117,6 +124,11 @@
         background-position: center;
         padding: 1rem;
         box-sizing: border-box;
+        font-family: 'trait-font', serif;
+        color: #c844a0;
+        font-size: 1.2rem;
+        line-height: 1.4;
+        text-align: center;
       }
       .descriptor-back {
         background-size: cover;
