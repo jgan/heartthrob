@@ -6,10 +6,7 @@ const { app } = require('electron')
 
 class Config {
     constructor(configPath = './config/default') {
-        // In production, the config directory will be in the resources folder
-        this.configPath = process.env.NODE_ENV === 'production'
-            ? path.join(process.resourcesPath, 'config/default')
-            : path.resolve(configPath);
+        this.configPath = path.resolve(configPath);
         this.hunks = [];
         this.descriptors = [];
         this.validImageExtensions = ['.png', '.jpg', '.jpeg', '.gif', '.webp'];
