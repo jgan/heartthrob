@@ -1,3 +1,4 @@
+// Game state management
 const gameContainer = document.getElementById('game-container');
 
 const renderHunks = (hunks) => {
@@ -8,25 +9,25 @@ const renderHunks = (hunks) => {
                 console.log('Loading image for hunk:', hunk.card.name, 'path:', hunk.card.imagePath);
                 return `
                     <div class="hunk-column">
-                        <div class="boyfriend-card">
-                            <div class="card-inner flipped" onclick="this.classList.toggle('flipped')">
-                                <div class="card-front">
+                        <div class="boyfriend-card" data-controller="card">
+                            <div class="card-inner" data-card-target="card" data-action="click->card#flip">
+                                <div class="card-front" data-card-target="front">
                                     <img src="${hunk.card.imagePath}" alt="${hunk.card.name}">
                                 </div>
-                                <div class="card-back">
+                                <div class="card-back" data-card-target="back">
                                 </div>
                             </div>
                         </div>
                         <div class="descriptors">
                             ${Object.entries(hunk.descriptors).map(([category, descriptor]) => `
-                                <div class="descriptor">
-                                    <div class="descriptor-inner flipped" onclick="this.classList.toggle('flipped')">
-                                        <div class="descriptor-front">
+                                <div class="descriptor" data-controller="card">
+                                    <div class="card-inner" data-card-target="card" data-action="click->card#flip">
+                                        <div class="card-front" data-card-target="front">
                                             <div>
                                                 ${descriptor.text}
                                             </div>
                                         </div>
-                                        <div class="descriptor-back"
+                                        <div class="card-back" data-card-target="back"
                                             style="background-image: url('config://card-backs/${descriptor.color}.png');">
                                         </div>
                                     </div>
@@ -52,13 +53,25 @@ const renderHunks = (hunks) => {
     }
 };
 
-// Listen for game updates from the main process
-window.versions.onGameUpdated((hunks) => {
-  renderHunks(hunks);
-});
+// IPC Event Handlers
+const setupIpcHandlers = () => {
+    // Listen for game updates from the main process
+    window.versions.onGameUpdated((hunks) => {
+        renderHunks(hunks);
+    });
+};
 
-// Initial render
-// window.versions.newGame();
-window.versions.getHunks().then(hunks => {
-    renderHunks(hunks);
-  });
+// Initialize the game
+const initializeGame = async () => {
+    try {
+        const hunks = await window.versions.getHunks();
+        renderHunks(hunks);
+    } catch (error) {
+        console.error('Error initializing game:', error);
+        gameContainer.innerHTML = '<p>Error initializing game</p>';
+    }
+};
+
+// Start the application
+setupIpcHandlers();
+initializeGame();

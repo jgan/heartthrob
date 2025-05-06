@@ -12,6 +12,13 @@
       content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' config:; font-src 'self' config:"
     />
     <title>Heart Throb</title>
+    <script type="importmap">
+    {
+      "imports": {
+        "@hotwired/stimulus": "../../node_modules/@hotwired/stimulus/dist/stimulus.js"
+      }
+    }
+    </script>
     <style>
       @font-face {
         font-family: 'trait-font';
@@ -43,13 +50,7 @@
         padding: .5rem;
         border-radius: 15px;
       }
-      .boyfriend-card {
-        perspective: 1000px;
-        height: 720px;
-        width: 430px;
-        filter: drop-shadow(8.7px 9.7px 3px rgba(0, 0, 0, 0.6));
-        flex-shrink: 0;
-      }
+
       .card-inner {
         position: relative;
         width: 100%;
@@ -59,10 +60,25 @@
         transform-style: preserve-3d;
         cursor: pointer;
       }
-      .card-inner.flipped {
+      .card--revealed {
         transform: rotateY(180deg);
       }
-      .card-front, .card-back {
+      .card-front {
+        transform: rotateY(180deg);
+      }
+      .card-back {
+        transform: rotateY(0deg);
+      }
+
+      .boyfriend-card {
+        perspective: 1000px;
+        height: 720px;
+        width: 430px;
+        filter: drop-shadow(8.7px 9.7px 3px rgba(0, 0, 0, 0.6));
+        flex-shrink: 0;
+      }
+      .boyfriend-card .card-front,
+      .boyfriend-card .card-back {
         position: absolute;
         width: 100%;
         height: 100%;
@@ -73,19 +89,19 @@
         overflow: hidden;
         border-radius: 15px;
       }
-      .card-front img {
+      .boyfriend-card .card-front img {
         width: 100%;
         height: 100%;
         object-fit: cover;
         border-radius: 15px;
       }
-      .card-back {
+      .boyfriend-card .card-back {
         background-image: url('config://card-backs/hunk.png');
         background-size: cover;
         background-position: center;
-        transform: rotateY(180deg);
         border-radius: 15px;
       }
+
       .descriptors {
         display: flex;
         flex-direction: column;
@@ -95,24 +111,15 @@
         max-height: 720px;
         flex-shrink: 0;
       }
+      
       .descriptor {
         perspective: 1000px;
         height: 130px;
         width: 180px;
         filter: drop-shadow(8.7px 9.7px 3px rgba(0, 0, 0, 0.6));
       }
-      .descriptor-inner {
-        position: relative;
-        width: 100%;
-        height: 100%;
-        transition: transform 0.9s;
-        transform-style: preserve-3d;
-        cursor: pointer;
-      }
-      .descriptor-inner.flipped {
-        transform: rotateY(180deg);
-      }
-      .descriptor-front, .descriptor-back {
+      .descriptor .card-front,
+      .descriptor .card-back {
         position: absolute;
         width: 100%;
         height: 100%;
@@ -123,7 +130,7 @@
         overflow: hidden;
         border-radius: 15px;
       }
-      .descriptor-front {
+      .descriptor .card-front {
         background-image: url('config://card-backs/default-trait-front.png');
         background-size: cover;
         background-position: center;
@@ -135,10 +142,9 @@
         line-height: 1.4;
         text-align: center;
       }
-      .descriptor-back {
+      .descriptor .card-back {
         background-size: cover;
         background-position: center;
-        transform: rotateY(180deg);
       }
     </style>
   </head>
@@ -147,5 +153,6 @@
       <!-- Hunks will be displayed here -->
     </div>
   </body>
-  <script src="./renderer.js"></script>
+  <script type="module" src="./javascript/application.js"></script>
+  <script type="module" src="./renderer.js"></script>
 </html>

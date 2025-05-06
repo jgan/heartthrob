@@ -5,8 +5,13 @@ const csv = require('csv-parse/sync');
 const { app } = require('electron')
 
 class Config {
-    constructor(configPath = './config/default') {
-        this.configPath = path.resolve(configPath);
+    constructor(configPath) {
+        if (!configPath) {
+            this.configPath = path.resolve(app.getAppPath(), 'config/default');
+        } else {
+            this.configPath = path.resolve(configPath);
+        }
+
         this.hunks = [];
         this.descriptors = [];
         this.validImageExtensions = ['.png', '.jpg', '.jpeg', '.gif', '.webp'];
