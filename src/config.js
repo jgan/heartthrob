@@ -6,9 +6,13 @@ const { app } = require('electron')
 
 class Config {
     constructor(configPath = './config/default') {
-        this.configPath = path.join(app.getAppPath(), './config/default');
+        // In production, the config directory will be in the resources folder
+        this.configPath = process.env.NODE_ENV === 'production'
+            ? path.join(process.resourcesPath, 'config/default')
+            : path.resolve(configPath);
         this.boyfriendCards = [];
         this.descriptors = [];
+        this.validImageExtensions = ['.png', '.jpg', '.jpeg', '.gif', '.webp'];
         this.load();
     }
 
@@ -22,10 +26,10 @@ class Config {
         const files = fs.readdirSync(cardsDir);
         
         this.boyfriendCards = files
-            .filter(file => file.endsWith('.png'))
+            .filter(file => this.validImageExtensions.includes(path.extname(file).toLowerCase()))
             .map(file => ({
-                name: path.basename(file, '.png'),
-                imagePath: path.join(cardsDir, file)
+                name: path.basename(file, path.extname(file)),
+                imagePath: `config://boyfriend-cards/${file}`
             }));
     }
 

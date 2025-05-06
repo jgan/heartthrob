@@ -11,7 +11,7 @@ const displaySuitors = (suitors) => {
                         <div class="boyfriend-card">
                             <div class="card-inner flipped" onclick="this.classList.toggle('flipped')">
                                 <div class="card-front">
-                                    <img src="app://${suitor.card.imagePath}" alt="${suitor.card.name}">
+                                    <img src="${suitor.card.imagePath}" alt="${suitor.card.name}">
                                 </div>
                                 <div class="card-back">
                                 </div>
@@ -28,7 +28,7 @@ const displaySuitors = (suitors) => {
                                             </div>
                                         </div>
                                         <div class="descriptor-back"
-                                            style="background-image: url('app:///Users/jgan/src/heart-throb-electron/config/default/card-backs/${descriptor.color}.png');">
+                                            style="background-image: url('config://card-backs/${descriptor.color}.png');">
                                         </div>
                                     </div>
                                 </div>

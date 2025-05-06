@@ -16,8 +16,6 @@ module.exports = {
         name: 'heart-throb',
         authors: 'Josh Gan',
         description: 'Heart Throb Game',
-        // noMsi: false,
-        // useAppIdAsId: true,
       },
     },
     {

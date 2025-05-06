@@ -5,18 +5,18 @@
     <!-- https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP -->
     <meta
       http-equiv="Content-Security-Policy"
-      content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' app:"
+      content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' config:"
     />
     <meta
       http-equiv="X-Content-Security-Policy"
-      content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' app:"
+      content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' config:"
     />
     <title>Heart Throb</title>
     <style>
       body {
         margin: 0;
         padding: 0;
-        background-image: url('app:///Users/jgan/src/heart-throb-electron/config/default/board_front.jpg');
+        background-image: url('config://board_front.jpg');
         background-size: cover;
         background-position: center;
         background-repeat: no-repeat;
@@ -68,7 +68,7 @@
         object-fit: cover;
       }
       .card-back {
-        background-image: url('app:///Users/jgan/src/heart-throb-electron/config/default/card-backs/suitor.png');
+        background-image: url('config://card-backs/suitor.png');
         background-size: cover;
         background-position: center;
         transform: rotateY(180deg);
