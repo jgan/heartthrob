@@ -1,24 +1,24 @@
 const gameContainer = document.getElementById('game-container');
 
-const displaySuitors = (suitors) => {
+const displayHunks = (hunks) => {
     try {
-        console.log('Displaying suitors:', suitors);
-        const suitorHTML = suitors.map(suitor => {
+        console.log('Displaying hunks:', hunks);
+        const hunkHTML = hunks.map(hunk => {
             try {
-                console.log('Loading image for suitor:', suitor.card.name, 'path:', suitor.card.imagePath);
+                console.log('Loading image for hunk:', hunk.card.name, 'path:', hunk.card.imagePath);
                 return `
-                    <div class="suitor-column">
+                    <div class="hunk-column">
                         <div class="boyfriend-card">
                             <div class="card-inner flipped" onclick="this.classList.toggle('flipped')">
                                 <div class="card-front">
-                                    <img src="${suitor.card.imagePath}" alt="${suitor.card.name}">
+                                    <img src="${hunk.card.imagePath}" alt="${hunk.card.name}">
                                 </div>
                                 <div class="card-back">
                                 </div>
                             </div>
                         </div>
                         <div class="descriptors">
-                            ${Object.entries(suitor.descriptors).map(([category, descriptor]) => `
+                            ${Object.entries(hunk.descriptors).map(([category, descriptor]) => `
                                 <div class="descriptor">
                                     <div class="descriptor-inner flipped" onclick="this.classList.toggle('flipped')">
                                         <div class="descriptor-front">
@@ -37,31 +37,31 @@ const displaySuitors = (suitors) => {
                     </div>
                 `;
             } catch (error) {
-                console.error('Error processing suitor:', suitor.card.name, error);
+                console.error('Error processing hunk:', hunk.card.name, error);
                 return null;
             }
         }).filter(html => html !== null);
 
-        if (suitorHTML.length === 0) {
-            throw new Error('No valid suitor HTML generated');
+        if (hunkHTML.length === 0) {
+            throw new Error('No valid hunk HTML generated');
         }
 
-        gameContainer.innerHTML = suitorHTML.join('');
+        gameContainer.innerHTML = hunkHTML.join('');
     } catch (error) {
-        console.error('Error displaying suitors:', error);
-        gameContainer.innerHTML = '<p>Error loading suitors</p>';
+        console.error('Error displaying hunks:', error);
+        gameContainer.innerHTML = '<p>Error loading hunks</p>';
     }
 };
 
 // Initialize the game when the page loads
-window.versions.newGame().then(displaySuitors).catch(error => {
+window.versions.newGame().then(displayHunks).catch(error => {
     console.error('Failed to start new game:', error);
     gameContainer.innerHTML = '<p>Error starting new game</p>';
 });
 
 // Add event listener for new game button
 document.getElementById('new-game').addEventListener('click', () => {
-    window.versions.newGame().then(displaySuitors).catch(error => {
+    window.versions.newGame().then(displayHunks).catch(error => {
         console.error('Failed to start new game:', error);
         gameContainer.innerHTML = '<p>Error starting new game</p>';
     });

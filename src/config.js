@@ -10,26 +10,26 @@ class Config {
         this.configPath = process.env.NODE_ENV === 'production'
             ? path.join(process.resourcesPath, 'config/default')
             : path.resolve(configPath);
-        this.boyfriendCards = [];
+        this.hunks = [];
         this.descriptors = [];
         this.validImageExtensions = ['.png', '.jpg', '.jpeg', '.gif', '.webp'];
         this.load();
     }
 
     load() {
-        this.loadBoyfriendCards();
+        this.loadHunks();
         this.loadDescriptors();
     }
 
-    loadBoyfriendCards() {
-        const cardsDir = path.join(this.configPath, 'boyfriend-cards');
-        const files = fs.readdirSync(cardsDir);
+    loadHunks() {
+        const hunksDir = path.join(this.configPath, 'hunks');
+        const files = fs.readdirSync(hunksDir);
         
-        this.boyfriendCards = files
+        this.hunks = files
             .filter(file => this.validImageExtensions.includes(path.extname(file).toLowerCase()))
             .map(file => ({
                 name: path.basename(file, path.extname(file)),
-                imagePath: `config://boyfriend-cards/${file}`
+                imagePath: `config://hunks/${file}`
             }));
     }
 
@@ -59,8 +59,8 @@ class Config {
         }, {});
     }
 
-    getBoyfriendCards() {
-        return this.boyfriendCards;
+    getHunks() {
+        return this.hunks;
     }
 
     getDescriptors(category) {

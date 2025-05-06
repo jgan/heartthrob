@@ -24,10 +24,3 @@ const loadBoyfriendCards = async () => {
 
 // Load boyfriend cards when the page loads
 loadBoyfriendCards()
-
-const ping = async () => {
-  const response = await window.versions.ping()
-  document.getElementById('info').innerText = `Ping response: ${response}`
-}
-
-document.getElementById('ping').addEventListener('click', ping)

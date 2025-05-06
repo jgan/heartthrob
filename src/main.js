@@ -80,11 +80,11 @@ app.whenReady().then(() => {
   });
 
   ipcMain.handle('ping', () => Date.now())
-  ipcMain.handle('get-boyfriend-cards', () => config.getBoyfriendCards())
+  ipcMain.handle('get-hunks', () => config.getHunks())
   ipcMain.handle('get-descriptors', (event, category) => config.getDescriptors(category))
   ipcMain.handle('new-game', () => {
     currentGame = new Game(config);
-    return currentGame.getSuitors();
+    return currentGame.getHunks();
   })
   
   createWindow()

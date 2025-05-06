@@ -29,10 +29,14 @@
         min-height: 100vh;
         background-color: rgba(255, 255, 255, 0.7);
       }
-      .suitor-column {
+      .hunk-column {
         flex: 1;
         margin: 0 10px;
         text-align: center;
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+        padding: 1rem;
       }
       .boyfriend-card {
         perspective: 1000px;
@@ -120,7 +124,7 @@
     <h1>Heart Throb</h1>
     <button id="new-game">New Game</button>
     <div id="game-container" class="game-container">
-      <!-- Suitors will be displayed here -->
+      <!-- Hunks will be displayed here -->
     </div>
   </body>
   <script src="./renderer.js"></script>
