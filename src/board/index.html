@@ -146,11 +146,41 @@
         background-size: cover;
         background-position: center;
       }
+
+      .card-modal {
+        position: fixed;
+        top: 0; left: 0; right: 0; bottom: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 1000;
+      }
+
+      .card-modal[hidden] {
+        display: none;
+      }
+
+      .card-modal__matte {
+        position: absolute;
+        top: 0; left: 0; right: 0; bottom: 0;
+        background: rgba(0,0,0,0.7);
+      }
+
+      .card-modal__image {
+        position: relative;
+        max-width: 90vw;
+        max-height: 90vh;
+        z-index: 1;
+      }
     </style>
   </head>
   <body>
     <div id="game-container" class="game-container">
       <!-- Hunks will be displayed here -->
+    </div>
+    <div id="card-modal" class="card-modal" data-controller="modal" data-action="card:zoom@window->modal#open" data-modal-target="container" hidden>
+      <div class="card-modal__matte" data-action="click->modal#close"></div>
+      <img class="card-modal__image" data-modal-target="image" src="" alt="Card Zoom" />
     </div>
   </body>
   <script type="module" src="./javascript/application.js"></script>

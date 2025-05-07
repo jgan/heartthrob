@@ -21,7 +21,7 @@ const createWindow = () => {
     }
   })
 
-  boardWindow.webContents.openDevTools()
+  // boardWindow.webContents.openDevTools()
   boardWindow.loadFile('./src/board/index.html')
 }
 
