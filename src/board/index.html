@@ -178,9 +178,9 @@
     <div id="game-container" class="game-container">
       <!-- Hunks will be displayed here -->
     </div>
-    <div id="card-modal" class="card-modal" data-controller="modal" data-action="card:zoom@window->modal#open" data-modal-target="container" hidden>
+    <div id="card-modal" class="card-modal" data-controller="modal" data-action="card:revealed@window->modal#open" data-modal-target="container" hidden>
       <div class="card-modal__matte" data-action="click->modal#close"></div>
-      <img class="card-modal__image" data-modal-target="image" src="" alt="Card Zoom" />
+      <div class="card-modal__content" data-modal-target="content" src="" alt="Card Zoom" />
     </div>
   </body>
   <script type="module" src="./javascript/application.js"></script>

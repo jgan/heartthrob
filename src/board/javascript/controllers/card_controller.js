@@ -3,11 +3,11 @@ import { Controller } from "@hotwired/stimulus"
 export default class extends Controller {
   static targets = ["card", "front", "back"]
   static values = {
-    revealed: { type: Boolean, default: false }
+    revealed: { type: Boolean, default: false },
+    zoomScale: { type: Number, default: 1.4 }
   }
 
   connect() {
-    // Initialize the card state
     this.updateCardState()
   }
 
@@ -16,10 +16,13 @@ export default class extends Controller {
     this.updateCardState()
     if (this.revealedValue) {
       setTimeout(() => {
-        const imageUrl = this.frontTarget.querySelector("img").src
-        this.element.dispatchEvent(new CustomEvent("card:zoom", {
+        const content = this.element.cloneNode(true)
+        // TODO: Consider renaming this "event" to "card:zoom"
+        // The inclusion of the zoomScaleValue in the event detail makes this
+        // event more of a command than a notifying event.
+        this.element.dispatchEvent(new CustomEvent("card:revealed", {
           bubbles: true,
-          detail: { imageUrl }
+          detail: { content, zoomScale: this.zoomScaleValue }
         }))
       // Timeout delay to give the flip animation time to _almost_ complete.
       // The flip animation duration is set in the CSS transition property of

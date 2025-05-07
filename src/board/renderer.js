@@ -20,7 +20,7 @@ const renderHunks = (hunks) => {
                         </div>
                         <div class="descriptors">
                             ${Object.entries(hunk.descriptors).map(([category, descriptor]) => `
-                                <div class="descriptor" data-controller="card">
+                                <div class="descriptor" data-controller="card" data-card-zoom-scale-value="2.5">
                                     <div class="card-inner" data-card-target="card" data-action="click->card#flip">
                                         <div class="card-front" data-card-target="front">
                                             <div>

@@ -8,5 +8,7 @@ contextBridge.exposeInMainWorld('versions', {
   getHunks: () => ipcRenderer.invoke('get-hunks'),
   getDescriptors: (category) => ipcRenderer.invoke('get-descriptors', category),
   newGame: () => ipcRenderer.invoke('new-game'),
-  onGameUpdated: (callback) => ipcRenderer.on('game-updated', (_, hunks) => callback(hunks))
+  onGameUpdated: (callback) => ipcRenderer.on('game-updated', (_, hunks) => callback(hunks)),
+  selectConfigFolder: () => ipcRenderer.invoke('select-config-folder'),
+  loadConfig: (folderPath) => ipcRenderer.invoke('load-config', folderPath)
 })

@@ -1,7 +1,7 @@
 const path = require('node:path')
 const fs = require('fs')
 
-const { app, BrowserWindow, ipcMain, protocol } = require('electron/main')
+const { app, BrowserWindow, ipcMain, protocol, dialog } = require('electron/main')
 
 const Config = require('./config')
 const Game = require('./game')
@@ -34,6 +34,7 @@ const createAdminWindow = () => {
     }
   })
 
+  // adminWindow.webContents.openDevTools()
   adminWindow.loadFile('./src/admin/index.html')
 }
 
@@ -76,6 +77,29 @@ app.whenReady().then(() => {
       boardWindow.webContents.send('game-updated', currentGame.getHunks());
     }
     return currentGame.getHunks();
+  })
+
+  // IPC handler to open a folder dialog and return the selected path
+  ipcMain.handle('select-config-folder', async () => {
+    const result = await dialog.showOpenDialog({
+      properties: ['openDirectory']
+    })
+    if (result.canceled || !result.filePaths.length) return null;
+    return result.filePaths[0];
+  })
+
+  // IPC handler to load a new config from a folder and start a new game
+  ipcMain.handle('load-config', (event, folderPath) => {
+    if (!folderPath) throw new Error('No folder path provided');
+    config.configPath = folderPath;
+    config.load();
+    currentGame = new Game(config);
+    // Notify the board window that a new game has started
+    if (boardWindow && !boardWindow.isDestroyed()) {
+      boardWindow.webContents.send('game-updated', currentGame.getHunks());
+      boardWindow.webContents.reloadIgnoringCache()
+    }
+    return true;
   })
   
   // // Initial game

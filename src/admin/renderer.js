@@ -1,16 +1,12 @@
 const information = document.getElementById('info')
 const boyfriendCardsList = document.getElementById('boyfriend-cards-list')
-const pingButton = document.getElementById('ping')
 const newGameButton = document.getElementById('new-game')
+const loadConfigBtn = document.getElementById('load-config-btn')
+const configPathSpan = document.getElementById('config-path')
+
 
 // Display app versions
-information.innerText = `This app is using Chrome (v${versions.chrome()}), Node.js (v${versions.node()}), and Electron (v${versions.electron()})`
-
-// Handle ping button
-pingButton.addEventListener('click', async () => {
-  const response = await window.versions.ping()
-  information.textContent = `Ping: ${response}`
-})
+information.innerText = `Chrome (v${versions.chrome()}), Node.js (v${versions.node()}), Electron (v${versions.electron()})`
 
 // Handle new game button
 newGameButton.addEventListener('click', async () => {
@@ -23,15 +19,30 @@ newGameButton.addEventListener('click', async () => {
   }
 })
 
+// Handle load config button
+loadConfigBtn.addEventListener('click', async () => {
+  try {
+    const folderPath = await window.versions.selectConfigFolder()
+    if (folderPath) {
+      await window.versions.loadConfig(folderPath)
+      configPathSpan.textContent = folderPath
+      information.textContent = 'Loaded config: ' + folderPath
+      loadBoyfriendCards()
+    }
+  } catch (error) {
+    information.textContent = 'Error loading config: ' + error.message
+  }
+})
+
 // Load and display boyfriend cards
 const loadBoyfriendCards = async () => {
   try {
-    const cards = await window.versions.getBoyfriendCards()
-    boyfriendCardsList.innerHTML = cards
-      .map(card => `
+    const hunks = await window.versions.getHunks()
+    boyfriendCardsList.innerHTML = hunks
+      .map(hunk => `
         <tr class="boyfriend-card-row">
-          <td>${card.name}</td>
-          <td>${card.imagePath}</td>
+          <td>${hunk.card.name}</td>
+          <td>${hunk.card.imagePath}</td>
         </tr>
       `)
       .join('')
