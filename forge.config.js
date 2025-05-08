@@ -13,22 +13,18 @@ module.exports = {
     {
       name: '@electron-forge/maker-squirrel',
       config: {
-        name: 'heart-throb',
-        authors: 'Josh Gan',
-        description: 'Heart Throb Game',
+        name: 'heartthrob',
+        authors: 'Joshua Gan',
+        description: 'Configurable simulation of the Heartthrob tabletopgame',
       },
     },
     {
-      name: '@electron-forge/maker-zip',
-      platforms: ['darwin'],
-    },
-    {
-      name: '@electron-forge/maker-deb',
-      config: {},
-    },
-    {
-      name: '@electron-forge/maker-rpm',
-      config: {},
+      name: '@electron-forge/maker-dmg',
+      config: {
+        name: 'heartthrob',
+        authors: 'Joshua Gan',
+        description: 'Configurable simulation of the Heartthrob tabletopgame',
+      },
     },
   ],
   plugins: [
